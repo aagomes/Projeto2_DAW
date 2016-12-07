@@ -10,8 +10,11 @@
         <ui:define name="conteudo">
             <h:form id="formListagem">
                 <p:growl/>
-                <p:commandButton value="Novo" icon="ui-icon-plus"
+                <p:commandButton value="NovoCurso" icon="ui-icon-plus"
                                  action="#{controleCurso.novo()}"
+                                 ajax="false"/>
+                <p:commandButton value="NovaDisciplina" icon="ui-icon-plus"
+                                 action="#{controleDisciplina.novo()}"
                                  ajax="false"/>
                 <div align="center">
                     <p:panelGrid columns="12">
@@ -63,8 +66,9 @@
                     <p:column headerText="Ações">
                         <div align="center">
                         <p:commandButton action="#{controleCurso.editar(obj.id)}"
-                                         icon="ui-icon-pencil" title="Editar"
+                                         icon="ui-icon-pencil" title="EditarCurso"
                                          ajax="false"/>
+                        
                         <p:commandButton actionListener="#{controleCurso.remove(obj.id)}"
                                          icon="ui-icon-trash" title="Remover"
                                          update="@form"
