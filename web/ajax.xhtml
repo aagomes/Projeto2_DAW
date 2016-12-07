@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Uso do Ajax</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h:inputText value="#{controleAjax.entrada}"
+                         id="txtEntrada01"/>
+            <br/>
+            <h:outputLabel value="#{controleAjax.saida}"
+                           id="txtSaida01"/>
+            <br/>
+            <h:commandButton value="Executar"
+                             actionListener="#{controleAjax.processar()}">
+                <f:ajax execute="txtEntrada01"
+                        render="txtSaida01 txtEntrada01"/>
+            </h:commandButton>                   
+        </h:form>
+        <h:form>
+            <p:inputText value="#{controleAjax.entrada}"
+                         id="txtEntrada02"/>
+            <br/>
+            <p:outputLabel value="#{controleAjax.saida}"
+                           id="txtSaida02"/>
+            <br/>
+            <p:commandButton value="Executar" id="btnExecutar"
+                             actionListener="#{controleAjax.processar()}"
+                             process="txtEntrada02 btnExecutar"
+                             update="@form"/>
+        </h:form>
+    </h:body>
+</html>
+

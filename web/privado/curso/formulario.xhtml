@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="titulo">Edição de Cursos</ui:define>
+        <ui:define name="conteudo">
+            <h:form>
+                <p:growl/>
+                <p:panelGrid columns="2">
+                    <f:facet name="header">
+                        <p:outputLabel value="Edição de Cursos"/>
+                    </f:facet>
+                    <f:facet name="footer">
+                        <div align="center">
+                            <p:commandButton value="Cancelar"
+                                             action="#{controleCurso.cancelar()}"
+                                             ajax="false" immediate="true"/>
+                            <p:commandButton icon="ui-icon-disk"
+                                             value="Salvar"
+                                             action="#{controleCurso.salvar()}"
+                                             ajax="false"/>
+                        </div>
+                    </f:facet>
+                    <p:outputLabel value="ID"/>
+                    <p:inputText value="#{controleCurso.objeto.id}"
+                                 size="5" readonly="true"/>
+                    <p:outputLabel value="Nome" for="txtNome"/>
+                    <p:inputText value="#{controleCurso.objeto.nome}" id="txtNome"
+                                 size="40" maxlength="40"
+                                 placeholder="Obrigatório"/>
+                    <p:outputLabel value="Sigla" for="txtSigla"/>
+                    <p:inputText value="#{controleCurso.objeto.sigla}" id="txtSigla"
+                                 size="40" maxlength="40"
+                                 placeholder="Obrigatório"/>
+                    <p:outputLabel value="Descricao" for="txtDescricao"/>
+                    <p:inputTextarea value="#{controleCurso.objeto.descricao}" id="txtDescricao"
+                                 placeholder="Obrigatório"/>
+                    <p:outputLabel value="Ativo" for="txtAtivo"/>
+                    <p:inputText value="#{controleCurso.objeto.ativo}" id="txtAtivo"
+                                 size="10" maxlength="10"
+                                 placeholder="Obrigatório"/>
+                    <p:outputLabel value="InicioAtividades" for="txtInicioAtividades"/>
+                                    <p:calendar id="txtInicioAtividades" value="#{controleCurso.objeto.inicioAtividades}"
+                                                pattern="dd/MM/yyyy" mask="true" locale="pt_BR"
+                                                navigator="true">
+                                        <f:converter converterId="converterCalendar"/>
+                                    </p:calendar>                    
+                    <p:outputLabel value="Instituicao" for="selectInstituicao"/>
+                    <p:selectOneMenu value="#{controleCurso.objeto.instituicao}" id="selectInstituicao">
+                        <f:converter converterId="converterInstituicao"/>
+                        <f:selectItem noSelectionOption="true" itemLabel="Selecione um registro"/>
+                        <f:selectItems value="#{controleCurso.daoInstituicao.listaTodos}"
+                                       var="e" itemLabel="#{e.nome}"/>
+                    </p:selectOneMenu>
+                </p:panelGrid>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

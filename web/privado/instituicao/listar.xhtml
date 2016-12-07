@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="titulo">Manutenção de Instituicoes</ui:define>
+        <ui:define name="conteudo">
+            <h:form id="formInstituicao">
+                <p:growl/>
+            <p:commandButton value="Novo" icon="ui-icon-plus"
+                             action="#{controleInstituicao.novo()}"
+                             ajax="false"/>
+            <div align="center">
+                    <p:panelGrid columns="12">
+                        <p:outputLabel value="Ordem "/>
+                        <p:selectOneMenu value="#{controleInstituicao.dao.ordem}">
+                            <f:selectItem itemLabel="ID" itemValue="id"/>
+                            <f:selectItem itemLabel="Nome" itemValue="nome"/>
+                            <f:selectItem itemLabel="AnoFundacao" itemValue="anoFundacao"/>
+                        <p:ajax update="listagem"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Filtro"/>
+                        <p:inputText value="#{controleInstituicao.dao.filtro}" size="15">
+                        <p:ajax update="listagem" event="keyup"/>
+                        </p:inputText>                       
+                        <p:outputLabel value="Maximo Objetos"/>
+                        <p:inputNumber value="#{controleInstituicao.dao.maximoObjetos}"
+                                       decimalPlaces="0" decimalSeparator=""
+                                       thousandSeparator="" size="3"/>
+                         <p:commandButton value="Filtrar" update="listagem"/>
+                            <p:commandButton actionListener="#{controleInstituicao.dao.primeiro()}"
+                                             icon="ui-icon-seek-first" update="listagem" title="Primeiro"/>
+                            <p:commandButton actionListener="#{controleInstituicao.dao.anterior()}"
+                                             icon="ui-icon-seek-prev" update="listagem" title="Anterior"/>
+                            <p:commandButton actionListener="#{controleInstituicao.dao.proximo()}"
+                                             icon="ui-icon-seek-next" update="listagem" title="Proximo"/>
+                            <p:commandButton actionListener="#{controleInstituicao.dao.ultimo()}"
+                                             icon="ui-icon-seek-end" update="listagem" title="Ultimo"/>
+                                                 
+                    </p:panelGrid>
+                </div>
+            <p:dataTable value="#{controleInstituicao.dao.listaObjetos}" 
+                         var="obj" id="listagem">
+                <p:column headerText="ID">
+                    <p:outputLabel value="#{obj.id}"/>
+                </p:column>
+                <p:column headerText="Nome">
+                    <p:outputLabel value="#{obj.nome}"/>
+                </p:column>
+                <p:column headerText="AnoFundacao">
+                    <p:calendar id="txtAnoFundacao" value="#{obj.anoFundacao}"
+                                                pattern="dd/MM/yyyy" mask="true" locale="pt_BR"
+                                                navigator="true">
+                                        <f:converter converterId="converterCalendar"/>
+                    </p:calendar>
+                </p:column>
+                <p:column headerText="Ações">
+                        <div align="center">
+                        <p:commandButton action="#{controleInstituicao.editar(obj.id)}"
+                                         icon="ui-icon-pencil" title="Editar"
+                                         ajax="false"/>
+                        <p:commandButton actionListener="#{controleInstituicao.remover(obj.id)}"
+                                         icon="ui-icon-trash" title="Remover"
+                                         update="@form"
+                                         onclick="if (!confirm('Confirma a remoção ?')) return false"/>
+                        </div>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+
+

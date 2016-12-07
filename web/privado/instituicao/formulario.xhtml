@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="titulo">Edicao de Instituicoes</ui:define>
+        <ui:define name="conteudo">
+            <h:form>
+                <p:growl/>
+                <p:panelGrid columns="2">
+                    <f:facet name="header">
+                        <p:outputLabel value="Edicao de Instituicoes"/>
+                    </f:facet>
+                    <f:facet name="footer">
+                        <div align="center">
+                            <p:commandButton value="Cancelar"
+                                             action="#{controleInstituicao.cancelar()}"
+                                             ajax="false" immediate="true"/>
+                            <p:commandButton icon="ui-icon-disk"
+                                             value="Salvar"
+                                             action="#{controleInstituicao.salvar()}"
+                                             ajax="false"/>
+                        </div>
+                    </f:facet>
+
+                <p:outputLabel value="ID"/>
+                <p:inputText value="#{controleInstituicao.objeto.id}"
+                             size="10" readonly="true"/>
+                <p:outputLabel value="Nome"/>
+                <p:inputText value="#{controleInstituicao.objeto.nome}"
+                             size="40" maxlength="40"/>
+                <p:outputLabel value="AnoFundacao" for="txtAnoFundacao"/>
+                                    <p:calendar id="txtAnoFundacao" value="#{controleInstituicao.objeto.anoFundacao}"
+                                                pattern="dd/MM/yyyy" mask="true" locale="pt_BR"
+                                                navigator="true">
+                                        <f:converter converterId="converterCalendar"/>
+                                    </p:calendar>
+                              
+            </p:panelGrid>
+        </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

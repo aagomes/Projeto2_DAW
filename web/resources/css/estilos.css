@@ -1,0 +1,21 @@
+.ui-widget{
+    font-size: 12px !important;
+    font-family: calibri !important;
+    color: black;
+}
+
+.ui-layout-north {
+    z-index:20 !important;
+    overflow:visible !important;
+    background: azure;
+}
+
+.ui-layout-north .ui-layout-unit-content {
+    overflow:visible !important;
+    background-color: threedface;
+}
+.ui-layout-center {
+    font-size: 24px !important;
+}
+
+
